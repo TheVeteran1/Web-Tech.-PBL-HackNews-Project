@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HackNews | A Hacking News Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Segoe UI,Tahoma,sans-serif;
+    }
+    body{
+      background:#0d0d0d;
+      color:#e0e0e0;
+    }
+    header{
+      background:#000;
+      border-bottom:2px solid #00ff9c;
+      padding:15px 30px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    header h1{
+      color:#00ff9c;
+      letter-spacing:2px;
+    }
+    nav a{
+      color:#e0e0e0;
+      text-decoration:none;
+      margin-left:20px;
+      font-size:14px;
+    }
+    nav a:hover{
+      color:#00ff9c;
+    }
+    .hero{
+      text-align:center;
+      padding:50px 20px;
+      background:linear-gradient(135deg,#001f1a,#000);
+    }
+    .hero h2{
+      color:#00ff9c;
+      font-size:32px;
+      margin-bottom:10px;
+    }
+    .hero p{
+      color:#bdbdbd;
+      font-size:15px;
+    }
+    .container{
+      padding:40px 8%;
+    }
+    .news-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:25px;
+    }
+    .card{
+      background:#141414;
+      border:1px solid #222;
+      border-radius:6px;
+      padding:20px;
+      transition:0.3s;
+    }
+    .card:hover{
+      border-color:#00ff9c;
+      transform:translateY(-5px);
+    }
+    .card span{
+      font-size:12px;
+      color:#00ff9c;
+    }
+    .card h3{
+      margin:10px 0;
+      font-size:18px;
+    }
+    .card p{
+      font-size:14px;
+      color:#bdbdbd;
+    }
+    .card a{
+      display:inline-block;
+      margin-top:10px;
+      color:#00ff9c;
+      text-decoration:none;
+      font-size:13px;
+    }
+    .card a:hover{
+      text-decoration:underline;
+    }
+    footer{
+      background:#000;
+      text-align:center;
+      padding:15px;
+      font-size:13px;
+      color:#888;
+      border-top:1px solid #222;
+    }
+    @media(max-width:600px){
+      header{
+        flex-direction:column;
+      }
+      nav{
+        margin-top:10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>HackNews</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Cyber Attacks</a>
+      <a href="#">Vulnerabilities</a>
+      <a href="#">Dark Web</a>
+      <a href="#">About</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Latest Hacking & Cyber Security News</h2>
+    <p>Stay updated with breaches, exploits, malware & cyber warfare</p>
+  </section>
+
+  <section class="container">
+    <div class="news-grid">
+
+      <div class="card">
+        <span>Cyber Attack</span>
+        <h3>Major Data Breach Exposes 10M Records</h3>
+        <p>A large tech firm suffered a massive data breach due to misconfigured servers.</p>
+        <a href="#">Read more →</a>
+      </div>
+
+      <div class="card">
+        <span> Vulnerability</span>
+        <h3>New Zero-Day Found in Popular Browser</h3>
+        <p>Security researchers discovered a zero-day actively exploited in the wild.</p>
+        <a href="#">Read more →</a>
+      </div>
+
+      <div class="card">
+        <span> Malware</span>
+        <h3>Ransomware Group Targets Hospitals</h3>
+        <p>A new ransomware campaign is specifically attacking healthcare systems.</p>
+        <a href="#">Read more →</a>
+      </div>
+
+      <div class="card">
+        <span> Dark Web</span>
+        <h3>Leaked Government Data for Sale</h3>
+        <p>Hackers claim to sell confidential data on underground forums.</p>
+        <a href="#">Read more →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    No copyright 2027 A Hacking News Website
+  </footer>
+</body>
+</html>

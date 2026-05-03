@@ -1,264 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>HackNews | Cyber Security News</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>HACKNEWS // ADVANCED INTEL SUITE v2.0</title>
+    <style>
+        :root { --neon: #00ff41; --bg: #050505; --panel: #111; --text: #eee; }
+        body { background: var(--bg); color: var(--text); font-family: 'Courier New', monospace; margin: 0; overflow: hidden; }
+        
+        /* Layout */
+        .wrapper { display: grid; grid-template-columns: 280px 1fr; height: 100vh; }
+        
+        /* Sidebar */
+        .sidebar { background: #0a0a0a; border-right: 1px solid #222; padding: 20px; display: flex; flex-direction: column; }
+        .logo { font-size: 22px; font-weight: bold; color: var(--neon); text-shadow: 0 0 10px var(--neon); margin-bottom: 30px; }
+        .nav-btn { background: none; border: 1px solid #333; color: #888; padding: 12px; margin-bottom: 10px; cursor: pointer; text-align: left; transition: 0.3s; }
+        .nav-btn:hover, .nav-btn.active { border-color: var(--neon); color: var(--neon); background: rgba(0,255,65,0.05); }
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Segoe UI,Tahoma,sans-serif;
-}
+        /* Terminal Output */
+        #console { background: #000; border: 1px solid #222; height: 150px; font-size: 11px; padding: 10px; color: var(--neon); overflow-y: auto; margin-top: auto; }
 
-body{
-  background:radial-gradient(circle at top,#001a16,#000);
-  color:#e0e0e0;
-}
-
-/* HEADER */
-header{
-  background:rgba(0,0,0,0.9);
-  border-bottom:2px solid #00ff9c;
-  padding:15px 40px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  backdrop-filter:blur(10px);
-}
-
-header h1{
-  color:#00ff9c;
-  letter-spacing:3px;
-  text-shadow:0 0 10px #00ff9c;
-}
-
-nav a{
-  color:#e0e0e0;
-  text-decoration:none;
-  margin-left:25px;
-  font-size:14px;
-  position:relative;
-}
-
-nav a::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:-5px;
-  width:0%;
-  height:2px;
-  background:#00ff9c;
-  transition:0.3s;
-}
-
-nav a:hover::after{
-  width:100%;
-}
-
-nav a:hover{
-  color:#00ff9c;
-}
-
-/* HERO */
-.hero{
-  text-align:center;
-  padding:80px 20px;
-  background:linear-gradient(135deg,#001f1a,#000);
-  position:relative;
-}
-
-.hero::before{
-  content:"";
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:radial-gradient(circle,#00ff9c22,transparent);
-  top:0;
-  left:0;
-}
-
-.hero h2{
-  color:#00ff9c;
-  font-size:36px;
-  margin-bottom:10px;
-  text-shadow:0 0 15px #00ff9c;
-}
-
-.hero p{
-  color:#bdbdbd;
-  font-size:16px;
-}
-
-/* CONTAINER */
-.container{
-  padding:50px 8%;
-}
-
-/* GRID */
-.news-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:30px;
-}
-
-/* CARD */
-.card{
-  background:linear-gradient(145deg,#111,#1a1a1a);
-  border:1px solid #222;
-  border-radius:10px;
-  padding:20px;
-  transition:0.4s;
-  position:relative;
-  overflow:hidden;
-}
-
-.card::before{
-  content:"";
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:linear-gradient(120deg,transparent,#00ff9c33,transparent);
-  top:-100%;
-  left:0;
-  transition:0.5s;
-}
-
-.card:hover::before{
-  top:100%;
-}
-
-.card:hover{
-  transform:translateY(-8px) scale(1.02);
-  border-color:#00ff9c;
-  box-shadow:0 0 20px #00ff9c33;
-}
-
-.card span{
-  font-size:12px;
-  color:#00ff9c;
-  letter-spacing:1px;
-}
-
-.card h3{
-  margin:12px 0;
-  font-size:19px;
-}
-
-.card p{
-  font-size:14px;
-  color:#bdbdbd;
-  line-height:1.5;
-}
-
-.card a{
-  display:inline-block;
-  margin-top:12px;
-  color:#00ff9c;
-  text-decoration:none;
-  font-size:13px;
-  border-bottom:1px solid transparent;
-  transition:0.3s;
-}
-
-.card a:hover{
-  border-bottom:1px solid #00ff9c;
-}
-
-/* FOOTER */
-footer{
-  background:#000;
-  text-align:center;
-  padding:20px;
-  font-size:13px;
-  color:#888;
-  border-top:1px solid #222;
-}
-
-/* RESPONSIVE */
-@media(max-width:600px){
-  header{
-    flex-direction:column;
-  }
-  nav{
-    margin-top:10px;
-  }
-}
-</style>
+        /* Main Content */
+        .main { padding: 30px; overflow-y: auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+        
+        /* News Cards */
+        .card { background: var(--panel); border: 1px solid #222; padding: 20px; border-radius: 4px; position: relative; transition: 0.2s; }
+        .card:hover { border-color: var(--neon); transform: scale(1.02); box-shadow: 0 0 20px rgba(0,255,65,0.1); }
+        .tag { position: absolute; top: 10px; right: 10px; font-size: 10px; padding: 2px 6px; border: 1px solid var(--neon); color: var(--neon); }
+        .card h3 { font-size: 16px; margin: 15px 0 10px 0; line-height: 1.4; }
+        .card p { font-size: 13px; color: #999; }
+        .card a { color: var(--neon); text-decoration: none; font-size: 12px; font-weight: bold; }
+        
+        .loading { text-align: center; color: var(--neon); margin-top: 50px; font-size: 20px; letter-spacing: 5px; }
+    </style>
 </head>
-
 <body>
 
-<header>
-  <h1>HackNews</h1>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Cyber Attacks</a>
-    <a href="#">Vulnerabilities</a>
-    <a href="#">Dark Web</a>
-    <a href="#">About</a>
-  </nav>
-</header>
+<div class="wrapper">
+    <aside class="sidebar">
+        <div class="logo">HACK NEWS </div>
+        <button class="nav-btn active" onclick="loadNews('cybersecurity')">Global Feed</button>
+        <button class="nav-btn" onclick="loadNews('ransomware')">Ransomware</button>
+        <button class="nav-btn" onclick="loadNews('vulnerability')">Vulnerabilities</button>
+        <button class="nav-btn" onclick="loadLocal()">Local Scraped Data</button>
+        
+        <div id="console">>_ System Ready...</div>
+    </aside>
 
-<section class="hero">
-  <h2>Latest Cyber Security Intelligence</h2>
-  <p>Real-time updates on breaches, exploits, malware & cyber warfare</p>
-</section>
+    <main class="main">
+        <div class="grid" id="newsGrid">
+            <div class="loading">INITIALIZING SECURE LINK...</div>
+        </div>
+    </main>
+</div>
 
-<section class="container">
-  <div class="news-grid">
+<script>
+    const API_KEY = 'pub_90cc436f169643c69ffecbdf2f56d364';
+    const log = document.getElementById('console');
+    const grid = document.getElementById('newsGrid');
 
-    <div class="card">
-      <span>Cyber Attack</span>
-      <h3>Massive Data Breach Exposes Millions</h3>
-      <p>Attackers exploited cloud misconfiguration exposing sensitive user data across multiple regions.</p>
-      <a href="#">Read more →</a>
-    </div>
+    function writeLog(msg) {
+        log.innerHTML += `<div>>_ ${msg}</div>`;
+        log.scrollTop = log.scrollHeight;
+    }
 
-    <div class="card">
-      <span>Vulnerability</span>
-      <h3>Critical Zero-Day in Browser Engine</h3>
-      <p>Researchers warn of active exploitation targeting millions of users worldwide.</p>
-      <a href="#">Read more →</a>
-    </div>
+    async function loadNews(query) {
+        grid.innerHTML = '<div class="loading">BYPASSING FIREWALLS...</div>';
+        writeLog(`Requesting remote intel for: ${query}`);
+        
+        try {
+            const res = await fetch(`https://newsdata.io/api/1/news?apikey=${API_KEY}&q=${query}&language=en`);
+            const data = await res.json();
+            
+            if(data.results && data.results.length > 0) {
+                render(data.results);
+                writeLog(`Successfully decrypted ${data.results.length} packets.`);
+            } else {
+                writeLog(`Warning: No remote data found. Key limit reached?`);
+                loadLocal(); // Auto-fallback
+            }
+        } catch(e) {
+            writeLog(`Remote Connection Error. Switching to Local Intel.`);
+            loadLocal();
+        }
+    }
 
-    <div class="card">
-      <span>Malware</span>
-      <h3>Advanced Ransomware Hits Hospitals</h3>
-      <p>New variant encrypts entire networks within minutes, disrupting healthcare services.</p>
-      <a href="#">Read more →</a>
-    </div>
+    async function loadLocal() {
+        writeLog(`Accessing local database (intel_data.json)...`);
+        try {
+            const res = await fetch('intel_data.json');
+            const data = await res.json();
+            render(data);
+            writeLog(`Local buffer loaded.`);
+        } catch(e) {
+            writeLog(`CRITICAL: Local database not found. Run scraper.py first.`);
+            grid.innerHTML = '<p style="color:red; text-align:center;">ERROR: NO DATA SOURCES FOUND.<br>1. Run scraper.py<br>2. Use Live Server (VS Code)</p>';
+        }
+    }
 
-    <div class="card">
-      <span>Dark Web</span>
-      <h3>Government Database Leaked Online</h3>
-      <p>Threat actors claim to sell classified data via underground marketplaces.</p>
-      <a href="#">Read more →</a>
-    </div>
+    function render(articles) {
+        grid.innerHTML = '';
+        articles.forEach(art => {
+            const div = document.createElement('div');
+            div.className = 'card';
+            div.innerHTML = `
+                <span class="tag">${art.tag || 'NEW'}</span>
+                <small style="color:#555">${(art.source_id || 'LOCAL').toUpperCase()}</small>
+                <h3>${art.title}</h3>
+                <p>${art.description ? art.description.substring(0, 100) : 'No description available.'}...</p>
+                <a href="${art.link}" target="_blank">VIEW INTEL →</a>
+            `;
+            grid.appendChild(div);
+        });
+    }
 
-    <div class="card">
-      <span>Cyber Espionage</span>
-      <h3>Nation-State Hackers Target Telecom</h3>
-      <p>Advanced persistent threats are infiltrating telecom infrastructure globally.</p>
-      <a href="#">Read more →</a>
-    </div>
-
-    <div class="card">
-      <span>AI Security</span>
-      <h3>AI Models Manipulated via Prompt Attacks</h3>
-      <p>Experts reveal new ways attackers bypass AI safety mechanisms.</p>
-      <a href="#">Read more →</a>
-    </div>
-
-  </div>
-</section>
-
-<footer>
-  No copyright 2027 • HackNews Cyber Platform
-</footer>
+    // Start with default news
+    window.onload = () => loadNews('cybersecurity');
+</script>
 
 </body>
 </html>
-
